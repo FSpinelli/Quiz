@@ -2,11 +2,7 @@ $(document).ready(function(){
 	// base url
 	var baseUrl = "http://127.0.0.1:8000"
 
-	$('.slick').slick();
-
-// $('.slick').slick({
-//   infinite: false,
-// });
+	// $('.slick').slick();
 
 	// gif load
 	$(document).ajaxStart(function() {
@@ -109,14 +105,17 @@ $(document).ready(function(){
             dataType : 'json',
             type: 'GET',
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			// headers: {
+			//     'Authorization' : localStorage.token
+			// },
             success: function(data, status, s) {
             	console.log(data);
             	var categories = "";
             	for(i=0; i<data.length; i++){
             		categories += '<label for="'+data[i].pk+'" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off">'+data[i].fields.category_pt+'</label><input type="checkbox" id="'+data[i].pk+'">';
             	}
-            	$('#list-categories').html(categories);
-            	$("#list-categories").trigger('create');
+            	$('#initial-setting .ui-content').html(categories);
+            	$("#initial-setting .ui-content").trigger('create');
 
             },
             error : function(res) {
