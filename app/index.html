@@ -14,17 +14,41 @@
 </head>
 
 <body>
-    <!-- initial setting-->
-    <div data-role="page" id="initial-setting">  
+    <!-- home-->
+    <div data-role="page" id="home" data-position="fixed">  
+        <div data-role="header">
+            <a href="#" class="ui-btn ui-icon-search ui-btn-icon-left">Busca</a>
+            <h1>Home</h1>
+            <a href="#categories" data-transition="slideup" class="ui-btn ui-icon-bullets ui-btn-icon-left">Categorias</a>
+        </div>
+
         <div data-role="main" class="ui-content">
-            
+            <a href="#game" class="ui-btn">Jogar</a>
+        </div>
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" data-icon="home">Home</a></li>
+                    <li><a href="#" data-icon="user">Pessoas</a></li>
+                    <li><a href="#" data-icon="comment">Chat</a></li>
+                    <li><a href="#" data-icon="gear">Ajustes</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-        <style type="text/css">
-    .slick-track, .slick-slide {
-        width: 100% !important;
-    }
-    </style> 
+
+    <!-- categories-->
+    <div data-role="page" id="categories">
+        <div data-role="header">
+            <a href="#home"  data-transition="slideup" data-direction="reverse" class="ui-btn ui-icon-delete ui-btn-icon-left">Cancelar</a>
+            <h1>Categorias</h1>
+            <a href="#" class="ui-btn ui-icon-check ui-btn-icon-left">Salvar</a>
+        </div>
+        <div data-role="main" class="ui-content">
+            <h1>Cat</h1>
+        </div>
+    </div>
 
     <!-- Signin -->
     <div data-role="page" id="signin">

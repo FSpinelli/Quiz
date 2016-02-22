@@ -39,7 +39,7 @@ $(document).ready(function(){
 	            		alert('Usuário ou senha incorreta.');
 	            	}else{
 						localStorage.token = data.token;
-						$.mobile.changePage( '#initial-setting', { transition: "fade" });
+						$.mobile.changePage( '#home', { transition: "fade" });
 	            	}
 	            },
 	            error : function(res) {
@@ -78,7 +78,7 @@ $(document).ready(function(){
 	            success: function(data, status, s) {
 	            	if(data.token !== undefined){
 	            		localStorage.token = data.token;
-	            		$.mobile.changePage( '#main', { transition: "fade" });
+	            		$.mobile.changePage( '#home', { transition: "fade" });
 	            	}else{
 		            	var msg = "";
 						jQuery.each(data, function(i, val) {
@@ -98,7 +98,7 @@ $(document).ready(function(){
 	});
 
 	// carrega a pagina de configuracao inicial
-	$('#initial-setting').on("pagecreate",function(event){
+	$('#categories').on("pagecreate",function(event){
 		// carrega a lista de todas as categorias disponiveis
         $.ajax({
             url: "http://127.0.0.1:8000/api/category/",
@@ -114,11 +114,12 @@ $(document).ready(function(){
             	for(i=0; i<data.length; i++){
             		categories += '<label for="'+data[i].pk+'" class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off">'+data[i].fields.category_pt+'</label><input type="checkbox" id="'+data[i].pk+'">';
             	}
-            	$('#initial-setting .ui-content').html(categories);
-            	$("#initial-setting .ui-content").trigger('create');
+            	$('#categories .ui-content').html(categories);
+            	$("#categories .ui-content").trigger('create');
 
             },
             error : function(res) {
+            	console.log(res);
                 alert('Ops! Ocorreu algum erro. Tente mais tarde.');
             },
             crossDomain:false
