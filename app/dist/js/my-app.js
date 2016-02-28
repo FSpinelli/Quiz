@@ -4,16 +4,22 @@ var myApp = new Framework7();
 // We need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
  
-// Add view
+/* Initialize views */
 var mainView = myApp.addView('.view-main', {
-  // Because we want to use dynamic navbar, we need to enable it for this view:
   dynamicNavbar: true
-});
+})
+// var anotherView = myApp.addView('.another-view', {
+//     dynamicNavbar: true
+// });
  
 function isEmail(email) {
   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   return regex.test(email);
 }
+
+$$('.teste').on('click', function(){
+    mainView.router.load({url:'teste.html', ignoreCache:true});
+}); 
 
 $$('.submit').on('click', function() { $$(this).parents('form').trigger('submit'); });
 // signin
@@ -23,7 +29,7 @@ $('form[name="signin"]').submit(function(event){
     var password = $(this).find('input[name="password"]').val();
 
     if(username == ""){
-        myApp.alert('Insira um e-mail.');
+        myApp.alert('Insira um e-mail.', 'Quiz');
     }else if(!isEmail(username)){
         myApp.alert('Insira um e-mail válido.');
     }else if(password == ""){
@@ -31,6 +37,7 @@ $('form[name="signin"]').submit(function(event){
     }else if(password.length < 6){
         myApp.alert('A senha deve conter 6 dígitos.');
     }else{
+        myApp.showIndicator()
         $.ajax({
             url: "http://127.0.0.1:8000/api/signin/",
             dataType : 'json',
@@ -38,6 +45,7 @@ $('form[name="signin"]').submit(function(event){
             data: $(this).serialize(),
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             success: function(data, status, s) {
+                myApp.hideIndicator();
                 if(data == 400){ 
                     myApp.alert('Usuário ou senha incorreta.');
                 }else{
@@ -46,6 +54,7 @@ $('form[name="signin"]').submit(function(event){
                 }
             },
             error : function(res) {
+                myApp.hideIndicator();
                 myApp.alert('Ops! Ocorreu algum erro. Tente mais tarde.');
             },
             crossDomain:false
